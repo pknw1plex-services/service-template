@@ -31,7 +31,7 @@
           username:  ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          script: cd /etc/docker/nextgen/${{ steps.repo-name.outputs.repository-name }} && echo $(date) > ver && git add . && git commit -m "auto" && git push
+          script: cd ${{ secrets.DOCKER_ROOT}}/${{ steps.repo-name.outputs.repository-name }} && echo $(date) > ver && git add . && git commit -m "auto" && git push
 
 
     backup_config:
@@ -52,4 +52,4 @@
           username:  ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          script: cd /etc/docker/nextgen/${{ steps.repo-name.outputs.repository-name }}/config && echo $(date) > ver && git add . && git commit -m "auto" && git push
+          script: cd ${{ secrets.DOCKER_ROOT}}/${{ steps.repo-name.outputs.repository-name }}/config && echo $(date) > ver && git add . && git commit -m "auto" && git push
