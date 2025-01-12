@@ -11,8 +11,10 @@
           description: 'Backup Config'
           required: true
           type: boolean
-  env: 
-    DOCKER_ROOT: "/etc/docker/services"
+        docker_root:
+          required: true
+          default: '/etc/pknw1/docker'
+
     
   jobs:
 
@@ -34,7 +36,7 @@
           username:  ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          script: cd /etc/docker/services/${{ steps.repo-name.outputs.repository-name }} && echo $(date) > ver && git add . && git commit -m "auto" && git push
+          script: cd  ${{ inputs.docker_root }}/${{ steps.repo-name.outputs.repository-name }} && echo $(date) > ver && git add . && git commit -m "auto" && git push
 
 
     backup_config:
@@ -55,4 +57,4 @@
           username:  ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          script: cd /etc/docker/services/${{ steps.repo-name.outputs.repository-name }}/config && echo $(date) > ver && git add . && git commit -m "auto" && git push
+          script: cd ${{ inputs.docker_root }}/${{ steps.repo-name.outputs.repository-name }}/config && echo $(date) > ver && git add . && git commit -m "auto" && git push
