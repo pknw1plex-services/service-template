@@ -12,6 +12,9 @@ on:
         description: 'Backup Config'
         required: true
         type: boolean
+      docker_root:
+        required: true
+        default: '/etc/pknw1/docker'
 
 jobs:
   docker_build:
@@ -57,4 +60,4 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          script: cd ${{ secrets.DOCKER_ROOT }}/${{ steps.repo-name.outputs.repository-name }} && docker compose pull
+          script: cd ${{ inputs.docker_root }}/${{ steps.repo-name.outputs.repository-name }} && docker compose pull
